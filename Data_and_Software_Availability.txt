@@ -1,0 +1,29 @@
+DATA AND SOFTWARE AVAILABILITY
+
+All data supporting the findings of this study are available within this repository (https://github.com/marcos-lourenzoni-gepess/JCIM) and described in the associated README files.
+
+Molecular dynamics simulations were performed using:
+- GROMACS
+- CHARMM36m force field
+- TIP3P water model
+- PME electrostatics with a 1.2 nm cutoff
+- LINCS algorithm for bond constraints
+- Periodic boundary conditions in all directions
+- MMPBSA DGbinding, DG_res and DDG_res
+- IIP, RMSD, Distances, PCA analysis
+
+
+
+Post-processing and statistical analyses were conducted using:
+- Python 3.10 (NumPy, MDTraj, Matplotlib)
+- FlowJo and Cytobank for flow cytometry data
+
+All simulation input (`.mdp`, `.top`, `.gro`)  files are provided in machine-readable formats under the `DM/` directory.  
+Processed data for figure generation are available under the `Analyses/` directory.  
+
+Confidential data were not used in this work.  
+No proprietary software was required to reproduce the results presented in this manuscript.
+
+For any questions regarding data usage or reproduction, please contact:
+Marcos Roberto Lourenzoni – Fiocruz Ceará (GEPeSS)
+Email: marcos.lourenzoni@fiocruz.br

@@ -1,0 +1,41 @@
+#Minimizacao com steep
+gmx grompp -f step6.0_minimization.mdp -c out1.gro -p topol.top -o em1.tpr -r out1.gro -maxwarn 1
+gmx mdrun -nice 4 -s em1.tpr -deffnm em1 -v
+
+
+Steepest Descents converged to Fmax < 1000 in 8428 steps
+Potential Energy  =  1.9882896e+04
+Maximum force     =  9.2533691e+02 on atom 28085
+Norm of force     =  1.9252575e+01
+
+#Minimizacao com cg
+gmx grompp -f step6.1_minimization.mdp -c em1.gro -p topol.top -o em2.tpr -r em1.gro -maxwarn 1
+gmx mdrun -nice 4 -s em2.tpr -deffnm em2 -v
+
+Polak-Ribiere Conjugate Gradients converged to Fmax < 1000 in 84 steps
+Potential Energy  =  1.1773235e+04
+Maximum force     =  6.1179248e+02 on atom 44146
+Norm of force     =  2.0298069e+01
+
+#Minimizacao com steep
+gmx grompp -f step6.2_minimization.mdp -c em2.gro -p topol.top -o em3.tpr -r em2.gro -maxwarn 1
+gmx mdrun -nice 4 -s em3.tpr -deffnm em3 -v
+
+Steepest Descents converged to Fmax < 1000 in 750 steps
+Potential Energy  =  6.3320938e+03
+Maximum force     =  9.6616711e+02 on atom 33988
+Norm of force     =  1.9087741e+01
+
+#Solvantando o sistema
+#para executar essa linha da comando não entrar no nó
+/local/softs/gromacs-513/bin/gmx solvate -cp em3.gro -cs -o em3-solvatado.gro -p topol.top -radius 0.5
+
+Output configuration contains 271626 atoms in 66571 residues
+Volume                 :     2989.11 (nm^3)
+Density                :     903.284 (g/l)
+Number of SOL molecules:  65637
+
+#Editar o arquivo em3-solvatado.gro, mudando de OW para OH2, HW1 para H1 e HW2 para H2
+
+#Gerar um tpr para tratar o .gro e gerar um pdb
+gmx grompp -f step6.2_minimization.mdp -c em3-solvatado.gro -p topol.top -o em3-solv.tpr -r em3-solvatado.gro -maxwarn 1
