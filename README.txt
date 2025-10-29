@@ -63,7 +63,7 @@ Contains post-processing results derived from MD trajectories:
 
 ### **Flow_Cytometry/**
 Contains experimental flow cytometry data:
-- **Raw_data/** – original `.fcs` or `.csv` files;  
+- **Raw_data/** – original `.dat`   
 - **Processed/** – cleaned data corresponding to figures in the manuscript and supplementary files.
 
 ---
@@ -74,9 +74,9 @@ All datasets are in **machine-readable** formats (`.dat`, ) and can be processed
 The analyses can be reproduced with:
 
 - **GROMACS **  
-- **Python 3.10** (NumPy, MDTraj, Matplotlib)  
+- **Python 3.10**  
 - **PyMOL + APBS Plugin**  
-- **FlowJo / Cytobank** (for flow cytometry)
+- ** flow cytometry
 
 The complete workflow for simulation, processing, and analysis is described in `Data_and_Software_Availability.txt`, following JCIM data-sharing guidelines.
 
