@@ -1,6 +1,6 @@
 DATA AND SOFTWARE AVAILABILITY
 
-All data supporting the findings of this study are available within this repository (https://github.com/marcos-lourenzoni-gepess/JCIM) and described in the associated README files.
+All data supporting the findings of this study are available within this repository (https://github.com/marcos-lourenzoni-gepess/CSBJ) and described in the associated README files.
 
 Molecular dynamics simulations were performed using:
 - GROMACS
