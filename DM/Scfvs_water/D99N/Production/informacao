@@ -1,0 +1,3 @@
+gmx24 grompp -f md1.mdp -c ../termalizacao/pr7-cluster-mol.gro -p ../termalizacao/sistema.top -n ../termalizacao/index.ndx  -o md1.tpr
+nohup gmx24 mdrun -nb gpu -nice 4 -s md1.tpr -deffnm md1 -v -nt 10 -pme gpu -gpu_id 01 -pin off >& saida-md1.log&
+

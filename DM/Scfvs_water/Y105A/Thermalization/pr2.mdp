@@ -1,0 +1,96 @@
+constraints         =  hbonds
+
+integrator          =  md
+
+dt                  =  0.001 
+
+nsteps              =  10000
+
+energygrps          =  Protein SOL 
+
+freezegrps          =  Protein  
+
+freezedim           =  Y Y Y  
+
+lincs_order         =  2 
+
+constraint_algorithm=  LINCS 
+
+;nstcomm             =  1
+
+nstxout             =  1000 
+
+nstvout             =  2000
+
+nstfout             =  0
+
+nstlog              =  500 
+
+nstenergy           =  500   
+
+nstlist             =  10 
+
+nstxout-compressed  =  1000
+
+ns_type             =  grid
+
+;coulombtype         =  Cut-off  
+
+coulombtype         =  PME 
+
+pme_order           =  4
+
+rlist               =  1.0 
+
+rcoulomb            =  1.0 
+
+rvdw                =  1.0 
+
+DispCorr            =  EnerPres
+
+fourierspacing      =  0.12
+
+fourier_nx          =  0
+
+fourier_ny          =  0
+
+fourier_nz          =  0
+
+ewald_rtol          =  1e-5
+
+cutoff-scheme       =  verlet
+
+;Berendsen temperature coupling is on in the system.
+
+Tcoupl              =  V-rescale 
+
+tau_t               =  0.2 0.2 0.2
+
+tc-grps             =  Protein Water Ion 
+
+ref_t               =  310 310  310
+
+annealing           =  no no  no
+
+;Pressure coupling is not on
+
+;Pcoupl              =  berendsen
+
+Pcoupl              =  no 
+
+pcoupltype          =  isotropic
+
+tau_p               =   0.1  
+
+compressibility     =   4.5e-5 
+
+ref_p               =   1.0 
+
+;Generate velocites is on at 310 K.
+
+gen_vel             =  no 
+
+gen_temp            =  310 
+
+gen_seed            =  173529
+

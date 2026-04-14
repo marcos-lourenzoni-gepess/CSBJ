@@ -1,0 +1,12 @@
+gmx24 grompp -f md1.mdp -c ../termalizacao/pr7-cluster-mol.gro -p ../termalizacao/sistema.top -n ../termalizacao/index.ndx  -o md1.tpr
+nohup gmx24 mdrun -nb gpu -nice 4 -s md1.tpr -deffnm md1 -v -nt 20 -pme gpu -gpu_id 23 -pin off >& saida-md1.log&
+
+##Tratando md1
+gmx24 trjconv -f md1.xtc -s ../termalizacao/pr7.tpr -o md1-red20.xtc -skip 20
+(saída sistema)
+
+gmx24 trjconv -f md1-red20.xtc -s md1.tpr -center -pbc cluster -o md1-cluster.xtc -nice 4 -ur compact
+(cluster proteina, center proteina, saida sistema)
+
+gmx24 trjconv -f md1-cluster.xtc -s md1.tpr -center -pbc mol -o md1-cluster-mol-red20.xtc -nice 4 -ur compact
+(center proteina, saida sistema)

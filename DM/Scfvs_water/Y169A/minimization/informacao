@@ -1,0 +1,47 @@
+#Estrutura foi submetida no servidor H++ para verificar o estado de protonação das histidinas
+HIS-35 1 (NE2)
+
+Ligações dissulfeto
+Link CYS-22 SG-158 and CYS-96 SG-743 (y/n) ?y
+Link CYS-160 SG-1177 and CYS-225 SG-1678 (y/n) ?y
+
+1. gmx24 pdb2gmx -f ofa-Y169A.pdb -o ofa-Y169A.gro -p sistema.top -ter -his -ignh -ss
+
+# Escolher campo de força: charmm36
+# Escolher modelo de água: o recomendado, provavelmente, TIP3P
+# Escolher grupos: carregados (NH3+ e COO-) e histidinas (de acordo com o H++)
+
+2. gmx24 editconf -f ofa-Y169A.gro -o box.gro -bt dodecahedron -d 1.8 -aligncenter 0 0 0
+
+Read 3586 atoms
+Volume: 2708.72 nm^3, corresponds to roughly 1218900 electrons
+No velocities found
+    system size :  4.843  5.756  4.897 (nm)
+    diameter    :  6.481               (nm)
+    center      :  7.134  7.271  5.447 (nm)
+    box vectors : 13.347 13.347 15.205 (nm)
+    box angles  :  90.00  90.00  90.00 (degrees)
+    box volume  :2708.72               (nm^3)
+    shift       :  0.427  0.290 -1.882 (nm)
+new center      :  7.561  7.561  3.564 (nm)
+new box vectors : 10.081 10.081 10.081 (nm)
+new box angles  :  60.00  60.00  90.00 (degrees)
+new box volume  : 724.52               (nm^3)
+
+3. gmx24 grompp -f em.mdp -c box.gro -p sistema.top -o em-vacuo.tpr -maxwarn 1
+3.1. gmx24 mdrun -nice 4 -s em-vacuo.tpr -deffnm em-vacuo -v
+
+Steepest Descents converged to Fmax < 1000 in 23 steps
+Potential Energy  = -7.0526772e+03
+Maximum force     =  8.1999060e+02 on atom 967
+Norm of force     =  1.5205789e+02
+
+4. gmx24 solvate -cp em-vacuo.gro -cs -o boxsolvente.gro -p sistema.top
+
+#Precisei gerar um tpr da proteína com água para poder fazer o tratamento e visualizar
+5. gmx24 grompp -f em.mdp -c boxsolvente.gro -p sistema.top -o boxsolvente.tpr -maxwarn 1
+ 
+#Tratando para visualizar
+6. gmx24 trjconv -f boxsolvente.gro -s boxsolvente.tpr -o box-cluster.gro -pbc cluster -center -ur compact
+6.1 gmx24 trjconv -f box-cluster.gro -s boxsolvente.tpr -o box-cluster-mol.gro -pbc mol -center -ur compact
+

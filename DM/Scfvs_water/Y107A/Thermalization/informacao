@@ -1,0 +1,33 @@
+#Neutralizando o sistema e deixando na concentração fisiológica
+1.  gmx24 grompp -f ions.mdp -c ../minimizacao/boxsolvente.gro -p sistema.top -o ions.tpr
+1.1 gmx24 genion -s ions.tpr -p sistema.top -o ions.gro -neutral -conc 0.150
+
+#Termalizacao NVT
+2. gmx24 grompp -f pr1.mdp -c ions.gro -p sistema.top -o pr1.tpr  -maxwarn 1
+2.1 gmx24 mdrun -nice 4 -s pr1.tpr -deffnm pr1 -v
+
+3. gmx24 grompp -f pr2.mdp -c pr1.gro -p sistema.top -o pr2.tpr -maxwarn 1
+3.1 gmx24 mdrun -nice 4 -s pr2.tpr -deffnm pr2 -v
+
+4. gmx24 grompp -f pr3.mdp -c pr2.gro -p sistema.top -o pr3.tpr -maxwarn 1
+4.1 gmx24 mdrun -nice 4 -s pr3.tpr -deffnm pr3 -v
+
+#Termalizacao NPT
+5. gmx24 grompp -f pr4.mdp -c pr3.gro -p sistema.top -o pr4.tpr -maxwarn 1
+5.1 gmx24 mdrun -nice 4 -s pr4.tpr -deffnm pr4 -v
+
+6. gmx24 grompp -f pr5.mdp -c pr4.gro -p sistema.top -o pr5.tpr -maxwarn 1
+6.1 gmx24 mdrun -nice 4 -s pr5.tpr -deffnm pr5 -v
+
+7. gmx24 grompp -f pr6.mdp -c pr5.gro -p sistema.top -o pr6.tpr -maxwarn 1
+7.1 gmx24 mdrun -nice 4 -s pr6.tpr -deffnm pr6 -v
+
+8. gmx24 grompp -f pr7.mdp -c pr6.gro -p sistema.top -o pr7.tpr -maxwarn 1
+8.1 gmx24 mdrun -nice 4 -s pr7.tpr -deffnm pr7 -v
+
+#Tratando para visualizar
+9. gmx24 trjconv -f pr7.gro -s pr7.tpr -o pr7-cluster.gro -pbc cluster -center -ur compact
+9.1 gmx24 trjconv -f pr7-cluster.gro -s pr7.tpr -o pr7-cluster-mol.gro -pbc mol -center -ur compact
+
+#gerando index
+gmx24 make_ndx -f pr7-cluster-mol.gro -o index.ndx
